@@ -11,6 +11,7 @@
     <title>index</title>
     <base href="http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}/">
     <script type="text/javascript" src="jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
 
     <script type="text/javascript">
         $(function () {
@@ -49,6 +50,11 @@
 
             })
 
+            $("#btn03").click(function () {
+                layer.msg("Hello!")
+
+            })
+
 
         })
     </script>
@@ -57,11 +63,17 @@
 
     <a href="test/ssm.html">测试ssm</a>
     <br/>
+    <br/>
 
     <button id="btn01"> send [5,8,12] one</button>
     <br/>
+    <br/>
 
     <button id="btn02">send [5,8,12] two</button>
+    <br/>
+    <br/>
+
+    <button id="btn03">layer</button>
 
 </body>
 </html>

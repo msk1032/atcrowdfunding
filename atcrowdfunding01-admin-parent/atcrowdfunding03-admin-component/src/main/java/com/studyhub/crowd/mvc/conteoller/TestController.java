@@ -36,6 +36,8 @@ public class TestController {
         for (Integer integer : list) {
             logger.info("num      "+integer);
         }
+        String a = null;
+        System.out.println(a.length());
 
         return ResultEntity.successWithData(list);
     }
@@ -47,6 +49,7 @@ public class TestController {
             System.out.println(integer);
         }
 
+
         return "target";
     }
 
@@ -56,10 +59,11 @@ public class TestController {
         List<Admin> admins = adminService.getAll();
         boolean ajaxRequest = CrowdUtils.isAjaxRequest(request);
 
-        logger.info("!!!!!!!!!!!!!!"+ ajaxRequest);
+        //logger.info("!!!!!!!!!!!!!!"+ ajaxRequest);
 
         model.addAttribute("admins", admins);
 
+        System.out.println(12/0);
 
         return "target";
     }
