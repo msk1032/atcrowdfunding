@@ -30,7 +30,7 @@ public class CrowdExceptionResolver {
      * @throws IOException
      */
     @ExceptionHandler(value = AccessForbiddenException.class)
-    public ModelAndView AccessForbiddenException(AccessForbiddenException exception, HttpServletRequest request,
+    public ModelAndView resolveAccessForbiddenException(AccessForbiddenException exception, HttpServletRequest request,
                                                     HttpServletResponse response )  throws IOException {
         return commonResolve(exception,request, response, "admin-login");
 
