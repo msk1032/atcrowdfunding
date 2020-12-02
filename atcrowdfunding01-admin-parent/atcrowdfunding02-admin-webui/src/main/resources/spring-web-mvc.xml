@@ -20,6 +20,14 @@
     物理视图是一个可以直接转发过去的地址
     物理视图："/WEB-INF/"+"target"+".jsp" 转发路径："/WEB-INF/target.jsp"
     -->
+    <!--配置异常处理机制映射-->
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="exceptionResolver">
+        <property name="exceptionMappings" >
+            <props>
+                <prop key="java.lang.Exception">system-error</prop>
+            </props>
+        </property>
+    </bean>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
         <!-- 前缀：附加到逻辑视图名称前 -->
         <property name="prefix" value="/WEB-INF/"/>
@@ -43,12 +51,5 @@
             <bean class="com.studyhub.crowd.mvc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
-    <!--配置异常处理机制映射-->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver" id="exceptionResolver">
-        <property name="exceptionMappings" >
-            <props>
-                <prop key="java.lang.Exception">system-error</prop>
-            </props>
-        </property>
-    </bean>
+
 </beans>

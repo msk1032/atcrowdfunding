@@ -31,6 +31,11 @@
       <artifactId>atcrowdfunding03-admin-component</artifactId>
       <version>1.0-SNAPSHOT</version>
     </dependency>
+<!--    导入pageHelper-->
+    <dependency>
+      <groupId>com.github.pagehelper</groupId>
+      <artifactId>pagehelper</artifactId>
+    </dependency>
 
     <!-- junit 测试 -->
     <dependency>

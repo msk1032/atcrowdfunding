@@ -7,6 +7,7 @@ import com.studyhub.crowd.service.api.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -63,14 +64,27 @@ public class AdminController {
      * @param modelMap
      * @return
      */
-    @RequestMapping("/admin/page.html")
-    public String getAdminPage(@RequestParam(value = "keyword", defaultValue = "" ) String keyword,
+    @RequestMapping("/admin/get/page.html")
+    public String getAdminPage(@RequestParam(value = "keyword", defaultValue = "") String keyword,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                               @RequestParam(value = "pageSize", defaultValue = "5")Integer pageSize,
+                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                ModelMap modelMap) {
+
         PageInfo<Admin> pageInfo = adminService.getAdminPage(keyword, pageNum, pageSize);
+
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
+
         return "admin-page";
+    }
+
+    @RequestMapping("/admin/remove/{adminId}/{pageNum}/{keyword}.html")
+    public String removeAdmin(@PathVariable("adminId") Integer adminId,
+                              @PathVariable("pageNum") Integer pageNum,
+                              @PathVariable("keyword") String keyword){
+        adminService.removeAdmin(adminId);
+
+        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
+
     }
 
 
