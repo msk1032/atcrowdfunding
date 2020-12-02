@@ -2,6 +2,8 @@ package com.studyhub.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.studyhub.crowd.constant.CrowdConstant;
+import com.studyhub.crowd.exception.AccessForbiddenException;
+import com.studyhub.crowd.exception.LoginFailedException;
 import com.studyhub.crowd.utils.CrowdUtils;
 import com.studyhub.crowd.utils.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -15,9 +17,41 @@ import java.io.IOException;
  * @author haoren
  * @create 2020-12-01 13:12
  */
-//@ControllerAdvice 表示当前类是一个基于注解的异常处理类
-@ControllerAdvice
+
+@ControllerAdvice //表示当前类是一个基于注解的异常处理类
 public class CrowdExceptionResolver {
+
+    /**
+     * 处理没有权限访问的异常 要登录
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ExceptionHandler(value = AccessForbiddenException.class)
+    public ModelAndView AccessForbiddenException(AccessForbiddenException exception, HttpServletRequest request,
+                                                    HttpServletResponse response )  throws IOException {
+        return commonResolve(exception,request, response, "admin-login");
+
+
+    }
+
+    /**
+     * 处理登陆失败的异常
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+    @ExceptionHandler(value = LoginFailedException.class)
+    public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
+                                                    HttpServletResponse response )  throws IOException {
+        return commonResolve(exception,request, response, "admin-login");
+
+
+    }
 
     //@ExceptionHandler 将一个具体的异常和方法关联起来
     @ExceptionHandler(value = NullPointerException.class)

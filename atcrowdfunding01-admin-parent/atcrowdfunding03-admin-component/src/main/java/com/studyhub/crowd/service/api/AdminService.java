@@ -13,4 +13,6 @@ public interface AdminService {
     void saveAdmin(Admin admin);
 
     List<Admin> getAll();
+
+    Admin getAdminByLoginAcct(String loginAcct, String userPwsd);
 }
