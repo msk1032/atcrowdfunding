@@ -32,7 +32,8 @@ public class CrowdExceptionResolver {
     @ExceptionHandler(value = AccessForbiddenException.class)
     public ModelAndView resolveAccessForbiddenException(AccessForbiddenException exception, HttpServletRequest request,
                                                     HttpServletResponse response )  throws IOException {
-        return commonResolve(exception,request, response, "admin-login");
+        String viewName = "admin-login";
+        return commonResolve(exception,request, response, viewName);
 
 
     }
@@ -48,7 +49,8 @@ public class CrowdExceptionResolver {
     @ExceptionHandler(value = LoginFailedException.class)
     public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
                                                     HttpServletResponse response )  throws IOException {
-        return commonResolve(exception,request, response, "admin-login");
+        String viewName = "admin-login";
+        return commonResolve(exception,request, response, viewName);
 
 
     }
@@ -57,7 +59,8 @@ public class CrowdExceptionResolver {
     @ExceptionHandler(value = NullPointerException.class)
     public ModelAndView resolveNullPointerException(NullPointerException exception, HttpServletRequest request,
                                                     HttpServletResponse response )  throws IOException {
-        return commonResolve(exception,request, response, "system-error");
+        String viewName = "system-error";
+        return commonResolve(exception,request, response, viewName);
 
 
     }

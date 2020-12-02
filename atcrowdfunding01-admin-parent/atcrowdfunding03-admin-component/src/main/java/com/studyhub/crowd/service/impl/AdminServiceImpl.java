@@ -1,5 +1,7 @@
 package com.studyhub.crowd.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.constant.CrowdConstant;
 import com.studyhub.crowd.entity.Admin;
 import com.studyhub.crowd.entity.AdminExample;
@@ -63,5 +65,18 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public List<Admin> getAll() {
         return adminMapper.selectByExample(new AdminExample());
+    }
+
+    @Override
+    public PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize) {
+        //1.开启分页功能
+        PageHelper.startPage(pageNum, pageSize);
+
+        //2.查询Admin数据
+        List<Admin> adminList = adminMapper.selectAdminListByKeyword(keyword);
+
+        //3.将数据封装为PageInfo之后返回
+        PageInfo<Admin> pageInfo = new PageInfo<Admin>(adminList);
+        return pageInfo;
     }
 }

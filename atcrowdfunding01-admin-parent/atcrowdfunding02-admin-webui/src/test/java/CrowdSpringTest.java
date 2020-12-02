@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -57,6 +56,13 @@ public class CrowdSpringTest {
     @Test
     public void testTx() {
         adminService.saveAdmin(new Admin(null, "tom", "123123", "汤姆", "tom@qq.com", null));
+    }
+
+    @Test
+    public void testSaveAdminMulti() {
+        for (int i = 0; i < 352; i++) {
+            adminMapper.insert(new Admin(null, "loginAcct" + i, "userPswd" + i, "userName" + i, "email" + i + "@qq.com", null));
+        }
     }
 
 }

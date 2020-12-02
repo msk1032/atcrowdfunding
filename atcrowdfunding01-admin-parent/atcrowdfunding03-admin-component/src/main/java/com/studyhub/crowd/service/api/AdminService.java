@@ -1,5 +1,6 @@
 package com.studyhub.crowd.service.api;
 
+import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.entity.Admin;
 
 import java.util.List;
@@ -15,4 +16,6 @@ public interface AdminService {
     List<Admin> getAll();
 
     Admin getAdminByLoginAcct(String loginAcct, String userPwsd);
+
+    PageInfo<Admin> getAdminPage(String keyword, Integer pageNum, Integer pageSize);
 }
