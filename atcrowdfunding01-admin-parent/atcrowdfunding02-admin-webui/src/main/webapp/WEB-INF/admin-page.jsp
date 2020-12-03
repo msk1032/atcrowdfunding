@@ -102,8 +102,7 @@
                         <table class="table  table-bordered">
                             <thead>
                             <tr>
-                                <th width="30">#</th>
-                                <th width="30"><input type="checkbox"></th>
+                                <th width="60px">序号</th>
                                 <th>账号</th>
                                 <th>名称</th>
                                 <th>邮箱地址</th>
@@ -113,14 +112,13 @@
                     <tbody>
                         <c:if test="${empty requestScope.pageInfo.list}">
                             <tr>
-                                <td colspan="6" align="center">抱歉！没有查询到相关的数据！</td>
+                                <td colspan="5" align="center">抱歉！没有查询到相关的数据！</td>
                             </tr>
                         </c:if>
                         <c:if test="${!empty requestScope.pageInfo.list}">
                             <c:forEach items="${requestScope.pageInfo.list}" var="admin" varStatus="myStatus">
                                 <tr>
                                     <td>${myStatus.count}</td>
-                                    <td><input type="checkbox"></td>
                                     <td>${admin.loginAcct}</td>
                                     <td>${admin.userName}</td>
                                     <td>${admin.email}</td>
@@ -149,7 +147,7 @@
                     </tbody>
                     <tfoot>
                     <tr >
-                        <td colspan="6" align="center">
+                        <td colspan="5" align="center">
                             <div id="Pagination" class="pagination"></div>
                         </td>
                     </tr>
