@@ -37,8 +37,10 @@
     <!-- 启用注解驱动 -->
     <mvc:annotation-driven/>
 
+<!--    配置页面跳转-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
     <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
+    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
 
     <mvc:interceptors>
         <mvc:interceptor>

@@ -13,3 +13,6 @@ create table `t_admin`(
     `create_time` char(19),
     primary key (`id`)
 );
+
+
+alter table  project_crowd.`t_admin` add unique index (`login_acct`);

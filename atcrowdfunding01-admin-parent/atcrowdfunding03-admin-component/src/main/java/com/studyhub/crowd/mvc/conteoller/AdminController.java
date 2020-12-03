@@ -77,6 +77,13 @@ public class AdminController {
         return "admin-page";
     }
 
+    /**
+     * 删除管理员数据
+     * @param adminId
+     * @param pageNum
+     * @param keyword
+     * @return
+     */
     @RequestMapping("/admin/remove/{adminId}/{pageNum}/{keyword}.html")
     public String removeAdmin(@PathVariable("adminId") Integer adminId,
                               @PathVariable("pageNum") Integer pageNum,
@@ -85,6 +92,15 @@ public class AdminController {
 
         return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
 
+    }
+
+    @RequestMapping("/admin/save.html")
+    public String saveAdmin(Admin admin) {
+
+        adminService.saveAdmin(admin);
+
+
+        return "redirect:/admin/get/page.html?pageNum=\"+pageNum+\"&keyword=\"+keyword";
     }
 
 
