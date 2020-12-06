@@ -94,15 +94,52 @@ public class AdminController {
 
     }
 
+    /**
+     * 添加管理员
+     * @param admin
+     * @return
+     */
     @RequestMapping("/admin/save.html")
     public String saveAdmin(Admin admin) {
 
         adminService.saveAdmin(admin);
 
-
-        return "redirect:/admin/get/page.html?pageNum=\"+pageNum+\"&keyword=\"+keyword";
+        return "redirect:/admin/get/page.html?pageNum="+Integer.MAX_VALUE;
     }
 
+    /**
+     * 获取表格中选中管理员的数据 在更新页面上回显数据
+     * @param id
+     * @param pageNum
+     * @param keyword
+     * @param modelMap
+     * @return
+     */
+    @RequestMapping("/admin/to/edit/page.html")
+    public String toEditPAge(@RequestParam("adminId") Integer id,
+                             @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                             @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                             ModelMap modelMap){
+
+        Admin admin = adminService.getAdminById(id);
+
+        modelMap.addAttribute("admin", admin);
+
+        return "admin-edit";
+    }
+
+    @RequestMapping("/admin/update.html")
+    public String updateAdmin(Admin admin,
+                              @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+                              @RequestParam(value = "keyword", defaultValue = "") String keyword,
+                              @RequestParam(value = "id") Integer id) {
+        
+
+        adminService.updateAdmin(admin);
+
+        return "redirect:/admin/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
+
+    }
 
 
 

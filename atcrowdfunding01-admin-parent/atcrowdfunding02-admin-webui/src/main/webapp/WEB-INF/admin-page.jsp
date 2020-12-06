@@ -14,7 +14,6 @@
 <head>
     <link rel="stylesheet" href="css/pagination.css">
     <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
-
     <script type="text/javascript">
         $(function () {
             //初始化函数 对页码和导航条进行初始化操作 确定要删除此管理员吗？

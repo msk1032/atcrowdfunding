@@ -5,14 +5,20 @@ import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.constant.CrowdConstant;
 import com.studyhub.crowd.entity.Admin;
 import com.studyhub.crowd.entity.AdminExample;
+import com.studyhub.crowd.exception.LoginAccountAlreadyInUseException;
+import com.studyhub.crowd.exception.LoginAccountAlreadyInUseUpdateException;
 import com.studyhub.crowd.exception.LoginFailedException;
 import com.studyhub.crowd.mapper.AdminMapper;
 import com.studyhub.crowd.service.api.AdminService;
 import com.studyhub.crowd.utils.CrowdUtils;
-import org.apache.taglibs.standard.lang.jstl.NullLiteral;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,10 +32,32 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminMapper adminMapper;
 
+    private Logger logger = LoggerFactory.getLogger(AdminServiceImpl.class);
+
     @Override
     public void saveAdmin(Admin admin) {
-        adminMapper.insert(admin);
-        throw new RuntimeException();
+        //1.密码加密
+        String userPaswd = CrowdUtils.md5(admin.getUserPswd());
+        admin.setUserPswd(userPaswd);
+
+        //2.设置创建时间
+        Date date = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String createDate = dateFormat.format(date);
+        admin.setCreateTime(createDate);
+
+        logger.info(admin.toString());
+
+        //3.存入数据库
+        try {
+            adminMapper.insert(admin);
+        } catch (Exception exception) {
+            logger.error("异常全类名"+exception.getClass().getName());
+            if(exception instanceof DuplicateKeyException) {
+                throw new LoginAccountAlreadyInUseException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
+
     }
 
     @Override
@@ -83,5 +111,23 @@ public class AdminServiceImpl implements AdminService {
     @Override
     public void removeAdmin(Integer adminId) {
         adminMapper.deleteByPrimaryKey(adminId);
+    }
+
+    @Override
+    public Admin getAdminById(Integer id) {
+        return adminMapper.selectByPrimaryKey(id);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        try {
+            adminMapper.updateByPrimaryKeySelective(admin);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+
+            if (exception instanceof DuplicateKeyException) {
+                throw new LoginAccountAlreadyInUseUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
+            }
+        }
     }
 }
