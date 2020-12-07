@@ -42,7 +42,8 @@
                                     type="text" class="form-control" id="loginAcct"
                                     placeholder="请输入登录账号"
                                     value="${admin.loginAcct}"
-                            >
+                                    disabled="disabled"
+                            />
                         </div>
 
                         <div class="form-group">

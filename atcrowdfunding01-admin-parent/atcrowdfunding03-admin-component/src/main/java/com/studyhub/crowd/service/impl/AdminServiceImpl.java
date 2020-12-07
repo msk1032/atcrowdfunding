@@ -8,6 +8,7 @@ import com.studyhub.crowd.entity.AdminExample;
 import com.studyhub.crowd.exception.LoginAccountAlreadyInUseException;
 import com.studyhub.crowd.exception.LoginAccountAlreadyInUseUpdateException;
 import com.studyhub.crowd.exception.LoginFailedException;
+import com.studyhub.crowd.exception.MyDeleteException;
 import com.studyhub.crowd.mapper.AdminMapper;
 import com.studyhub.crowd.service.api.AdminService;
 import com.studyhub.crowd.utils.CrowdUtils;
@@ -110,7 +111,13 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void removeAdmin(Integer adminId) {
-        adminMapper.deleteByPrimaryKey(adminId);
+
+        try {
+            adminMapper.deleteByPrimaryKey(adminId);
+        } catch (Exception exception) {
+            exception.printStackTrace();
+            throw new MyDeleteException(CrowdConstant.MY_SYSTEM_ERROR);
+        }
     }
 
     @Override

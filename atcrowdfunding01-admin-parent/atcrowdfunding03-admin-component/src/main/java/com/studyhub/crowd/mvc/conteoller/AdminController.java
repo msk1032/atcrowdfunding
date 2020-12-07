@@ -10,9 +10,11 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+
 
 /**
  * @author haoren
@@ -95,6 +97,30 @@ public class AdminController {
     }
 
     /**
+     * 多条记录删除
+     * @param ids
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value="admin/remove/admins.json", produces="application/json; charset=UTF-8")
+    public String removeAdmins(@RequestParam("ids") String ids) {
+
+        String [] idList = ids.split(",");
+
+        for(int i = 0; i < idList.length; i++) {
+
+            adminService.removeAdmin(Integer.parseInt(idList[i]));
+        }
+
+        String msg = CrowdConstant.OPERATE_SUCCESS;
+
+//        Gson gson = new Gson();
+//        String json = gson.toJson(msg);
+//        return json;
+        return msg;
+    }
+
+    /**
      * 添加管理员
      * @param admin
      * @return
@@ -124,6 +150,7 @@ public class AdminController {
         Admin admin = adminService.getAdminById(id);
 
         modelMap.addAttribute("admin", admin);
+
 
         return "admin-edit";
     }

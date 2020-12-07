@@ -60,7 +60,7 @@ public class CrowdSpringTest {
 
     @Test
     public void testSaveAdminMulti() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 100; i++) {
             adminMapper.insert(new Admin(null, "loginAcct" + i, "userPswd" + i, "userName" + i, "email" + i + "@qq.com", null));
         }
     }

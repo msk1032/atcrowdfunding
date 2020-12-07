@@ -2,10 +2,7 @@ package com.studyhub.crowd.mvc.config;
 
 import com.google.gson.Gson;
 import com.studyhub.crowd.constant.CrowdConstant;
-import com.studyhub.crowd.exception.AccessForbiddenException;
-import com.studyhub.crowd.exception.LoginAccountAlreadyInUseException;
-import com.studyhub.crowd.exception.LoginAccountAlreadyInUseUpdateException;
-import com.studyhub.crowd.exception.LoginFailedException;
+import com.studyhub.crowd.exception.*;
 import com.studyhub.crowd.utils.CrowdUtils;
 import com.studyhub.crowd.utils.ResultEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -22,6 +19,23 @@ import java.io.IOException;
 
 @ControllerAdvice //表示当前类是一个基于注解的异常处理类
 public class CrowdExceptionResolver {
+    /**
+     * 处理我的删除异常
+     * @param exception
+     * @param request
+     * @param response
+     * @return
+     * @throws IOException
+     */
+
+    @ExceptionHandler(value = MyDeleteException.class)
+    public ModelAndView resolveMyMyDeleteException(MyDeleteException exception,HttpServletRequest request,
+                                                   HttpServletResponse response )  throws IOException {
+
+        String viewName = "system-error";
+        return commonResolve(exception, request, response, viewName);
+
+    }
 
     @ExceptionHandler(value = LoginAccountAlreadyInUseUpdateException.class)
     public ModelAndView resolveLoginAccountAlreadyInUseUpdateException(LoginAccountAlreadyInUseUpdateException exception,HttpServletRequest request,
