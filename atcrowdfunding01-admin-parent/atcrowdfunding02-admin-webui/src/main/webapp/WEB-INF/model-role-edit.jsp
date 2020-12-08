@@ -19,6 +19,7 @@
             <div class="modal-body">
                 <form class="form-signin" role="form">
                     <div class="form-group has-success has-feedback">
+<%--                        添加隐藏文本框 将roleId值传过去--%>
                         <input type="hidden" id="roleId">
                         <input
                                 type="text" name="roleName"

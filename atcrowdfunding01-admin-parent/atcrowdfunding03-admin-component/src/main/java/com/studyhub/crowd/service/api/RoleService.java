@@ -3,6 +3,8 @@ package com.studyhub.crowd.service.api;
 import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.entity.Role;
 
+import java.util.List;
+
 /**
  * @author haoren
  * @create 2020-12-07 20:04
@@ -15,5 +17,5 @@ public interface RoleService {
 
     void updateRole(Role role);
 
-    void removeRoleById(Integer id);
+    void removeRoleById(List<Integer> list);
 }

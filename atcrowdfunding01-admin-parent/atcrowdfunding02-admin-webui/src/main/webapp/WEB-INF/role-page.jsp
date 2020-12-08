@@ -17,6 +17,9 @@
     <script type="text/javascript">
 
         $(function () {
+            /*
+            分页js代码
+             */
             initPagination();
 
             function initPagination() {
@@ -46,16 +49,17 @@
                 return false;
             }
 
+            //显示添加窗口
             $("#showAddModalBtn").click(function () {
                 $("#addModal").modal("show");
             })
+
             /**
              * 添加模块
              */
             $("#saveRoleBtn").click(function () {
                 var roleName = $.trim($("#addModal [name=roleName]").val());
 
-                console.log(roleName);
                 $.ajax({
                     url : "role/save.json",
                     data:{"name":roleName},
@@ -80,8 +84,9 @@
                     }
                 })
             })
-
+            //关闭模态框
             $("#addModal").modal("hide");
+            //清除文本框的值
             $("#addModal [name=roleName]").val("");
 
             /**
@@ -90,7 +95,9 @@
 
             $(".updateClass").click(function () {
                 $("#editModal").modal("show");
+                //给修改模态框的隐藏文本框赋值 将roleId传过去
                 $("#roleId").val($(this).attr("roleId"));
+                //回显要修改的角色名
                 $("#editModal [name=roleName]").val($(this).parent().prev().text())
 
             })
@@ -125,23 +132,21 @@
                     }
                 })
             })
-
+            //关闭模态框
             $("#editModal").modal("hide");
+            //清除文本框的值
             $("#editModal [name=roleName]").val("");
 
             //删除模块
 
-            // //复选框的全选、全不选
-
+            //复选框的全选、全不选
             $("#checkAll").click(function (){
                 $(".delCheck").prop("checked", $("#checkAll").prop("checked"));
-
             })
             $(document).on("click", ".delCheck", function () {
                 var flag = $(".check:checked").length == $(".delCheck").length;
                 $("#checkAll").prop("checked", flag);
             })
-
 
             $(".delRoleClass").click(function () {
                 var delRoleIdList = new Array();
@@ -252,6 +257,7 @@
                                 <td>
                                     <button type="button" class="btn btn-success btn-xs"><i
                                             class=" glyphicon glyphicon-check"></i></button>
+<%--                                    给修改和删除按钮添加自定义属性 发送请求时将role的id传过去--%>
                                     <button type="button" roleId="${role.id}" class="btn btn-primary btn-xs updateClass"><i
                                             class=" glyphicon glyphicon-pencil "></i></button>
                                     <button type="button" roleId="${role.id}" class="btn btn-danger btn-xs delRoleClass"><i

@@ -60,9 +60,7 @@ public class RoleController {
                              @RequestParam("pageNum") Integer pageNum,
                              @RequestParam("keyword") String keyword) {
 
-        for (Integer id : delList) {
-            roleService.removeRoleById(id);
-        }
+        roleService.removeRoleById(delList);
 
         return "redirect:/role/get/page.html?pageNum="+pageNum+"&keyword="+keyword;
     }

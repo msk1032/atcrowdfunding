@@ -3,6 +3,7 @@ package com.studyhub.crowd.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.entity.Role;
+import com.studyhub.crowd.entity.RoleExample;
 import com.studyhub.crowd.mapper.RoleMapper;
 import com.studyhub.crowd.service.api.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,15 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void removeRoleById(Integer id) {
-        roleMapper.deleteByPrimaryKey(id);
+    public void removeRoleById(List<Integer> list) {
+
+        //roleMapper.deleteByPrimaryKey(id);
+
+        RoleExample roleExample = new RoleExample();
+        RoleExample.Criteria criteria = roleExample.createCriteria();
+
+        criteria.andIdIn(list);
+
+        roleMapper.deleteByExample(roleExample);
     }
 }
