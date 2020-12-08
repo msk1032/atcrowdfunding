@@ -6,6 +6,7 @@ package com.studyhub.crowd.exception;
  * @create 2020-12-07 18:35
  */
 public class MyDeleteException extends RuntimeException{
+    private static final long serialVersionUID = 7034897190L;
     public MyDeleteException() {
         super();
     }

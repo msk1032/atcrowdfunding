@@ -114,9 +114,6 @@ public class AdminController {
 
         String msg = CrowdConstant.OPERATE_SUCCESS;
 
-//        Gson gson = new Gson();
-//        String json = gson.toJson(msg);
-//        return json;
         return msg;
     }
 
@@ -158,8 +155,7 @@ public class AdminController {
     @RequestMapping("/admin/update.html")
     public String updateAdmin(Admin admin,
                               @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                              @RequestParam(value = "keyword", defaultValue = "") String keyword,
-                              @RequestParam(value = "id") Integer id) {
+                              @RequestParam(value = "keyword", defaultValue = "") String keyword) {
         
 
         adminService.updateAdmin(admin);

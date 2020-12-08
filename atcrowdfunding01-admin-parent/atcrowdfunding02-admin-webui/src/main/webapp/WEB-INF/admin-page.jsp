@@ -18,19 +18,53 @@
     <script type="text/javascript">
         $(function () {
 
+            //初始化函数 对页码和导航条进行初始化操作 确定要删除此管理员吗？
+            initPagination();
+            function initPagination() {
+                var totalRecord = ${requestScope.pageInfo.total};
+
+                var properties = {
+                    //边缘页数
+                    num_edge_entries: 3,
+                    //主体页数
+                    num_display_entries: 5,
+                    //点击翻页按钮之后的回调函数
+                    callback: pageSelectCallback,
+                    //当前页
+                    current_page: ${requestScope.pageInfo.pageNum-1},
+                    prev_text: "上一页",
+                    next_text: "下一页",
+                    items_per_page: ${requestScope.pageInfo.pageSize},
+                }
+                //调用分页导航条对应的jQuery对象的 pagination生成导航条
+                $("#Pagination").pagination(totalRecord, properties);
+            }
+
+            // 翻页过程中执行的回调函数
+            // 点击“上一页”、“下一页”或“数字页码”都会触发翻页动作，从而导致当前函数被调用
+            //pageIndex是当前页码的索引 pageIndex + 1 = pageNum
+            function pageSelectCallback(pageIndex, jQuery) {
+                var pageNum = pageIndex + 1;
+                //页面跳转
+                window.location.href = "admin/get/page.html?pageNum=" + pageNum + "&keyword=${param.keyword}";
+                //取消当前超链接的默认行为
+                return false;
+
+
+            }
+
             //复选框的全选、全不选
             $("#checkAll").click(function (){
                 $(".delCheck").prop("checked", $("#checkAll").prop("checked"));
 
             })
-            $(document).on("click", ".check", function () {
+            $(document).on("click", ".delCheck", function () {
                 var flag = $(".delCheck:checked").length == $(".delCheck").length;
                 $("#checkAll").prop("checked", flag);
             })
 
-            //初始化函数 对页码和导航条进行初始化操作 确定要删除此管理员吗？
-            initPagination();
 
+            //单个删除提示
             $(".glyphicon-remove").click(function () {
 
                 return confirm("确定要删除此管理员吗？")
@@ -70,39 +104,6 @@
                 }
             })
         });
-
-        function initPagination() {
-            var totalRecord = ${requestScope.pageInfo.total};
-
-            var properties = {
-                //边缘页数
-                num_edge_entries: 3,
-                //主体页数
-                num_display_entries: 5,
-                //点击翻页按钮之后的回调函数
-                callback: pageSelectCallback,
-                //当前页
-                current_page: ${requestScope.pageInfo.pageNum-1},
-                prev_text: "上一页",
-                next_text: "下一页",
-                items_per_page: ${requestScope.pageInfo.pageSize},
-            }
-            //调用分页导航条对应的jQuery对象的 pagination生成导航条
-            $("#Pagination").pagination(totalRecord, properties);
-        }
-
-        // 翻页过程中执行的回调函数
-        // 点击“上一页”、“下一页”或“数字页码”都会触发翻页动作，从而导致当前函数被调用
-        //pageIndex是当前页码的索引 pageIndex + 1 = pageNum
-        function pageSelectCallback(pageIndex, jQuery) {
-            var pageNum = pageIndex + 1;
-            //页面跳转
-            window.location.href = "admin/get/page.html?pageNum=" + pageNum + "&keyword=${param.keyword}";
-            //取消当前超链接的默认行为
-            return false
-
-
-        }
     </script>
 </head>
 <body>

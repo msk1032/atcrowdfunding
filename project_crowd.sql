@@ -16,3 +16,7 @@ create table `t_admin`(
 
 
 alter table  project_crowd.`t_admin` add unique index (`login_acct`);
+
+CREATE TABLE `project_crowd`.`t_role` ( `id` INT NOT NULL, `name` CHAR(100), PRIMARY KEY
+(`id`) );
+ALTER TABLE `project_crowd`.`t_role` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT

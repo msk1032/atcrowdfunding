@@ -6,7 +6,6 @@ import com.studyhub.crowd.constant.CrowdConstant;
 import com.studyhub.crowd.entity.Admin;
 import com.studyhub.crowd.entity.AdminExample;
 import com.studyhub.crowd.exception.LoginAccountAlreadyInUseException;
-import com.studyhub.crowd.exception.LoginAccountAlreadyInUseUpdateException;
 import com.studyhub.crowd.exception.LoginFailedException;
 import com.studyhub.crowd.exception.MyDeleteException;
 import com.studyhub.crowd.mapper.AdminMapper;
@@ -127,14 +126,8 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void updateAdmin(Admin admin) {
-        try {
-            adminMapper.updateByPrimaryKeySelective(admin);
-        } catch (Exception exception) {
-            exception.printStackTrace();
 
-            if (exception instanceof DuplicateKeyException) {
-                throw new LoginAccountAlreadyInUseUpdateException(CrowdConstant.MESSAGE_LOGIN_ACCT_ALREADY_IN_USE);
-            }
-        }
+        adminMapper.updateByPrimaryKeySelective(admin);
+
     }
 }

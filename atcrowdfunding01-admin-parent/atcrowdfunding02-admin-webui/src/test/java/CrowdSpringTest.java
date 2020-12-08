@@ -1,5 +1,7 @@
 import com.studyhub.crowd.entity.Admin;
+import com.studyhub.crowd.entity.Role;
 import com.studyhub.crowd.mapper.AdminMapper;
+import com.studyhub.crowd.mapper.RoleMapper;
 import com.studyhub.crowd.service.api.AdminService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +32,16 @@ public class CrowdSpringTest {
     @Autowired
     private AdminService adminService;
 
+    @Autowired
+    private RoleMapper roleMapper;
+
+    @Test
+    public void testInsertRole() {
+        for(int i = 0; i < 100; i++) {
+            roleMapper.insert(new Role(null, "role-"+i+1));
+        }
+    }
+
     @Test
     public void testDataSource() throws SQLException {
         Connection connection = dataSource.getConnection();
@@ -48,7 +60,7 @@ public class CrowdSpringTest {
 
         Admin admin = adminMapper.selectByPrimaryKey(1);
         Logger logger = LoggerFactory.getLogger(CrowdSpringTest.class);
-    // 按照 Debug 级别打印日志
+        // 按照 Debug 级别打印日志
         logger.debug(admin.toString());
 
     }

@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>admin</title>
+    <title>尚筹网后台管理系统</title>
 </head>
 <body>
 <meta charset="UTF-8">

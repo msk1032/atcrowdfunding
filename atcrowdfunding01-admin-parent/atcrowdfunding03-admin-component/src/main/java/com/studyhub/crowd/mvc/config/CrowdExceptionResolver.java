@@ -37,12 +37,6 @@ public class CrowdExceptionResolver {
 
     }
 
-    @ExceptionHandler(value = LoginAccountAlreadyInUseUpdateException.class)
-    public ModelAndView resolveLoginAccountAlreadyInUseUpdateException(LoginAccountAlreadyInUseUpdateException exception,HttpServletRequest request,
-                                                                 HttpServletResponse response )  throws IOException {
-        String viewName = "system-error";
-        return commonResolve(exception, request, response, viewName);
-    }
     /**
      * 处理账号重复异常
      * @param exception
