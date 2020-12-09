@@ -9,6 +9,166 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zh-CN">
 <%@include file="/WEB-INF/head.jsp" %>
+<head>
+    <link rel="stylesheet" href="ztree/zTreeStyle.css">
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="crowdjs/my-menu.js"></script>
+    <script type="text/javascript" src="layer/layer.js"></script>
+    <script>
+        $(function(){
+
+            generateTree();
+
+            //添加节点
+            $("#treeDemo").on("click",".addBtn",function () {
+                //将当前节点的id作为新节点的pid
+                window.pid = this.id;
+                $("#menuAddModal").modal("show");
+
+                return false;
+            })
+
+            //更新节点
+            $("#treeDemo").on("click", ".editBtn", function () {
+                window.id = this.id;
+                $("#menuEditModal").modal("show");
+
+                //回显表单信息
+                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                var currentNode = zTreeObj.getNodeByParam("id", window.id);
+
+                $("#menuEditModal [name=name]").val(currentNode.name);
+                $("#menuEditModal [name=url]").val(currentNode.url);
+                //设置value要将值放入[]中
+                $("#menuEditModal [name=icon]").val([currentNode.icon]);
+
+                return false;
+            })
+
+            //删除节点
+            $("#treeDemo").on("click", ".removeBtn", function () {
+                window.id = this.id;
+                $("#menuConfirmModal").modal("show");
+
+                //获取当前节点信息
+                var zTreeObj = $.fn.zTree.getZTreeObj("treeDemo");
+                var currentNode = zTreeObj.getNodeByParam("id", window.id);
+
+                $("#removeNodeSpan").html("【<i class='"+currentNode.icon+"'></i>"+currentNode.name+"】");
+
+                return false;
+
+            })
+
+            //添加节点 点击保存按钮
+            $("#menuSaveBtn").click(function () {
+                $.ajax({
+                    url: "menu/save.json",
+                    type: "post",
+                    data:{
+                        "pid": window.pid,
+                        "url": $.trim($("#menuAddModal [name=url]").val()),
+                        "name": $.trim($("#menuAddModal [name=name]").val()),
+                        "icon": $("#menuAddModal [name=icon]:checked").val()
+                    },
+                    success:function (res) {
+                        var result = res.result;
+                        if(result == "SUCCESS") {
+                            layer.msg("操作成功！", {time: 500}, function () {
+                                generateTree();
+                            });
+                        }
+
+                        if(result == "FAILED") {
+                            layer.msg("操作失败！", {time: 500}, function () {
+                            });
+                        }
+
+                    },
+                    error:function (res) {
+                        layer.msg(res.status+" "+res.statusText, {time: 500}, function () {
+                        });
+                    }
+                })
+                $("#menuAddModal").modal("hide");
+                //清空表单
+                $("#menuResetBtn").click();
+
+            })
+
+            //更新节点点击保存按钮
+            $("#menuEditBtn").click(function () {
+
+                console.log($.trim($("#menuEditModal [name=name]").val()));
+                $.ajax({
+                    url: "menu/update.json",
+                    type: "post",
+                    data:{
+                        "id": window.id,
+                        "url": $.trim($("#menuEditModal [name=url]").val()),
+                        "name": $.trim($("#menuEditModal [name=name]").val()),
+                        "icon": $("#menuEditModal [name=icon]:checked").val()
+                    },
+                    success:function (res) {
+                        var result = res.result;
+                        if(result == "SUCCESS") {
+                            layer.msg("操作成功！", {time: 500}, function () {
+                                generateTree();
+                            });
+                        }
+
+                        if(result == "FAILED") {
+                            layer.msg("操作失败！", {time: 500}, function () {
+                            });
+                        }
+
+                    },
+                    error:function (res) {
+                        layer.msg(res.status+" "+res.statusText, {time: 500}, function () {
+                        });
+                    }
+                });
+
+                $("#menuEditModal").modal("hide");
+            })
+
+            $("#confirmBtn").click(function () {
+                $.ajax({
+                    url: "menu/remove.json",
+                    type:"post",
+                    data:{
+                        "id":window.id
+                    },
+                    success:function (res) {
+                        var result = res.result;
+                        if(result == "SUCCESS") {
+                            layer.msg("操作成功！", {time: 500}, function () {
+                                generateTree();
+                            });
+                        }
+
+                        if(result == "FAILED") {
+                            layer.msg("操作失败！", {time: 500}, function () {
+                            });
+                        }
+
+                    },
+                    error:function (res) {
+                        layer.msg(res.status+" "+res.statusText, {time: 500}, function () {
+                        });
+                    }
+
+                })
+                //关闭模态框 清空消息
+                $("#menuConfirmModal").modal("hide")
+                $("#removeNodeSpan").html("")
+            })
+
+
+
+        });
+    </script>
+</head>
 <body>
 
 <%@include file="/WEB-INF/nav.jsp" %>
@@ -34,5 +194,8 @@
 
     </div>
 </div>
+<%@include file="/WEB-INF/modal-menu-add.jsp"%>
+<%@include file="/WEB-INF/modal-menu-edit.jsp"%>
+<%@include file="/WEB-INF/modal-menu-confirm.jsp"%>
 </body>
 </html>
