@@ -38,7 +38,7 @@ public class CrowdSpringTest {
     @Test
     public void testInsertRole() {
         for(int i = 0; i < 100; i++) {
-            roleMapper.insert(new Role(null, "role-"+i+1));
+            roleMapper.insert(new Role(null, "role-"+(i+1)));
         }
     }
 

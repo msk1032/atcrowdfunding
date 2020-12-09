@@ -285,7 +285,7 @@
 
 </div>
 </div>
-<%@include file="/WEB-INF/model-role-add.jsp"%>
-<%@include file="/WEB-INF/model-role-edit.jsp"%>
+<%@include file="/WEB-INF/modal-role-add.jsp"%>
+<%@include file="/WEB-INF/modal-role-edit.jsp"%>
 </body>
 </html>
