@@ -130,4 +130,20 @@ public class AdminServiceImpl implements AdminService {
         adminMapper.updateByPrimaryKeySelective(admin);
 
     }
+
+    /**
+     * 简单粗暴 先删再增
+     * @param adminId
+     * @param roleList
+     */
+    @Override
+    public void saveAdminRoleRelationship(Integer adminId, List<Integer> roleList) {
+
+        adminMapper.deleteAdminRoleRelationship(adminId);
+
+        if (roleList != null && roleList.size() >0) {
+            adminMapper.insertAdminRoleRelationship(adminId, roleList);
+        }
+
+    }
 }

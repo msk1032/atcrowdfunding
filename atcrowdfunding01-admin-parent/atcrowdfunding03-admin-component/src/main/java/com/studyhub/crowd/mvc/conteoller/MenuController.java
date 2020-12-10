@@ -23,7 +23,7 @@ public class MenuController {
     private MenuService menuService;
 
     @RequestMapping("/menu/get/whole/tree.json")
-    public ResultEntity<Menu> getWholeTree() {
+    public Menu getWholeTree() {
         //1.查询全部menu对象
         List<Menu> menuList = menuService.getAll();
 
@@ -49,7 +49,7 @@ public class MenuController {
 
         }
         //4.返回根节点
-        return ResultEntity.successWithData(root);
+        return root;
     }
 
 

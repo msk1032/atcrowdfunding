@@ -1,5 +1,26 @@
 function generateTree() {
     // 1.准备生成树形结构的JSON数据，数据的来源是发送Ajax请求得到
+    var setting = {
+        async:{
+            enable: true,
+            url: "menu/get/whole/tree.json",
+            autoParam: ["id"]
+
+        },
+        view:{
+            addDiyDom:myAddDiyDom,
+            addHoverDom:myHoverDom,
+            removeHoverDom:myRemoveHoverDom
+        },
+        data:{
+            key:{
+                url:"4XX"
+            }
+        }
+    };
+
+    $.fn.zTree.init($("#treeDemo"), setting);
+/*
     $.ajax({
         "url": "menu/get/whole/tree.json",
         "type":"post",
@@ -9,6 +30,7 @@ function generateTree() {
             if(result == "SUCCESS") {
                 // 2.创建JSON对象用于存储对zTree所做的设置
                 var setting = {
+
                     view:{
                         addDiyDom:myAddDiyDom,
                         addHoverDom:myHoverDom,
@@ -33,6 +55,8 @@ function generateTree() {
             }
         }
     });
+
+ */
 }
 
 

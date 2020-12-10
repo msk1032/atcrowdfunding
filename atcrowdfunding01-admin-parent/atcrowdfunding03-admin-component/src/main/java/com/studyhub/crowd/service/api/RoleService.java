@@ -18,4 +18,8 @@ public interface RoleService {
     void updateRole(Role role);
 
     void removeRoleById(List<Integer> list);
+
+    List<Role> getAssignedRoleByAdminId(Integer adminId);
+
+    List<Role> getUnassignedRoleByAdminId(Integer adminId);
 }

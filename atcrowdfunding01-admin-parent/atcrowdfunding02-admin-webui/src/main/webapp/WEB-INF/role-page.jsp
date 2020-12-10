@@ -11,15 +11,13 @@
 <html lang="zh-CN">
 <head>
     <link rel="stylesheet" href="css/pagination.css">
+    <link rel="stylesheet" href="ztree/zTreeStyle.css">
     <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
     <script type="text/javascript" src="layer/layer.js"></script>
-
+    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="crowdjs/my-role.js"></script>
     <script type="text/javascript">
-
         $(function () {
-            /*
-            分页js代码
-             */
             initPagination();
 
             function initPagination() {
@@ -49,142 +47,7 @@
                 return false;
             }
 
-            //显示添加窗口
-            $("#showAddModalBtn").click(function () {
-                $("#addModal").modal("show");
-            })
-
-            /**
-             * 添加模块
-             */
-            $("#saveRoleBtn").click(function () {
-                var roleName = $.trim($("#addModal [name=roleName]").val());
-
-                $.ajax({
-                    url : "role/save.json",
-                    data:{"name":roleName},
-                    type:"post",
-                    success:function (res) {
-                        var result = res.result;
-                        if(result == "SUCCESS") {
-                            layer.msg("操作成功！", {time: 500}, function () {
-                                window.location.href="role/get/page.html?pageNum="+9999999;
-                            });
-                        }
-
-                        if(result == "FAILED") {
-                            layer.msg("操作失败！", {time: 500}, function () {
-                            });
-                        }
-
-                    },
-                    error:function (res) {
-                        layer.msg(res.status+" "+res.statusText, {time: 500}, function () {
-                        });
-                    }
-                })
-            })
-            //关闭模态框
-            $("#addModal").modal("hide");
-            //清除文本框的值
-            $("#addModal [name=roleName]").val("");
-
-            /**
-             * 修改模块
-             */
-
-            $(".updateClass").click(function () {
-                $("#editModal").modal("show");
-                //给修改模态框的隐藏文本框赋值 将roleId传过去
-                $("#roleId").val($(this).attr("roleId"));
-                //回显要修改的角色名
-                $("#editModal [name=roleName]").val($(this).parent().prev().text())
-
-            })
-
-            $("#updateRoleBtn").click(function () {
-
-                console.log($("#roleId").val());
-                $.ajax({
-                    url: "role/update.json",
-                    data:{
-                        "id": $("#roleId").val(),
-                        "name": $("#editModal [name=roleName]").val()
-                    },
-                    type:"post",
-                    success:function (res) {
-                        var result = res.result;
-                        if(result == "SUCCESS") {
-                            layer.msg("操作成功！", {time: 500}, function () {
-                                location.reload();
-                            });
-                        }
-
-                        if(result == "FAILED") {
-                            layer.msg("操作失败！", {time: 500}, function () {
-                            });
-                        }
-
-                    },
-                    error:function (res) {
-                        layer.msg(res.status+" "+res.statusText, {time: 500}, function () {
-                        });
-                    }
-                })
-            })
-            //关闭模态框
-            $("#editModal").modal("hide");
-            //清除文本框的值
-            $("#editModal [name=roleName]").val("");
-
-            //删除模块
-
-            //复选框的全选、全不选
-            $("#checkAll").click(function (){
-                $(".delCheck").prop("checked", $("#checkAll").prop("checked"));
-            })
-            $(document).on("click", ".delCheck", function () {
-                var flag = $(".check:checked").length == $(".delCheck").length;
-                $("#checkAll").prop("checked", flag);
-            })
-
-            $(".delRoleClass").click(function () {
-                var delRoleIdList = new Array();
-                delRoleIdList.push($(this).attr("roleId"));
-                if (confirm("确定要删除吗？")) {
-                    console.log(delRoleIdList);
-                    window.location.href="role/remove.html?list="+delRoleIdList
-                        +"&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}";
-                }
-
-            })
-
-            $("#delRoleBtn").click(function () {
-                var count = 0;
-                var delRoleIdList = new Array();
-                $(".delCheck").each(function () {
-                    if (this.checked == true) {
-                        delRoleIdList.push($(this).val());
-                        count++;
-                    }
-                })
-                console.log(count);
-                console.log(delRoleIdList);
-                if (confirm("确定要删除吗？")) {
-                    window.location.href="role/remove.html?list="+delRoleIdList
-                        +"&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}";
-                }
-            })
-
-
         })
-
-
-
-
-
-
-
     </script>
 </head>
 <body>
@@ -255,7 +118,7 @@
                                 <td><input type="checkbox" width="30" class="delCheck" value="${role.id}"></td>
                                 <td>${role.name}</td>
                                 <td>
-                                    <button type="button" class="btn btn-success btn-xs"><i
+                                    <button type="button" roleId="${role.id}" class="btn btn-success btn-xs checkBtn"><i
                                             class=" glyphicon glyphicon-check"></i></button>
 <%--                                    给修改和删除按钮添加自定义属性 发送请求时将role的id传过去--%>
                                     <button type="button" roleId="${role.id}" class="btn btn-primary btn-xs updateClass"><i
@@ -287,5 +150,6 @@
 </div>
 <%@include file="/WEB-INF/modal-role-add.jsp"%>
 <%@include file="/WEB-INF/modal-role-edit.jsp"%>
+<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
 </body>
 </html>
