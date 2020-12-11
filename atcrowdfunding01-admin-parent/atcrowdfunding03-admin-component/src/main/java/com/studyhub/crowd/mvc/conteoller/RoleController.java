@@ -34,7 +34,7 @@ public class RoleController {
         PageInfo<Role> pageInfo = roleService.getPageInfo(pageNum, pageSize, keyword);
         model.addAttribute("pageInfo", pageInfo);
 
-        return "role-page";
+        return "pages/role-page";
     }
 
     @ResponseBody

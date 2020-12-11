@@ -48,7 +48,7 @@ public class CrowdExceptionResolver {
     @ExceptionHandler(value = LoginAccountAlreadyInUseException.class)
     public ModelAndView resolveLoginAccountAlreadyInUseException(LoginAccountAlreadyInUseException exception,HttpServletRequest request,
                                                      HttpServletResponse response )  throws IOException {
-        String viewName = "admin-add";
+        String viewName = "admin/admin-add";
         return commonResolve(exception, request, response, viewName);
     }
 

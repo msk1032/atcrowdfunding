@@ -7,15 +7,15 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="/WEB-INF/head.jsp" %>
+<%@include file="/WEB-INF/common/head.jsp" %>
 <html lang="zh-CN">
 <head>
-    <link rel="stylesheet" href="css/pagination.css">
-    <link rel="stylesheet" href="ztree/zTreeStyle.css">
-    <script type="text/javascript" src="jquery/jquery.pagination.js"></script>
-    <script type="text/javascript" src="layer/layer.js"></script>
-    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
-    <script type="text/javascript" src="crowdjs/my-role.js"></script>
+    <link rel="stylesheet" href="static/css/pagination.css">
+    <link rel="stylesheet" href="static/ztree/zTreeStyle.css">
+    <script type="text/javascript" src="static/jquery/jquery.pagination.js"></script>
+    <script type="text/javascript" src="static/layer/layer.js"></script>
+    <script type="text/javascript" src="static/ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="static/crowdjs/my-role.js"></script>
     <script type="text/javascript">
         $(function () {
             initPagination();
@@ -47,15 +47,52 @@
                 return false;
             }
 
+            //删除模块
+            //复选框的全选、全不选
+            $("#checkAll").click(function () {
+                $(".delCheck").prop("checked", $("#checkAll").prop("checked"));
+            })
+            $(document).on("click", ".delCheck", function () {
+                var flag = $(".check:checked").length == $(".delCheck").length;
+                $("#checkAll").prop("checked", flag);
+            })
+
+            $(".delRoleClass").click(function () {
+                var delRoleIdList = new Array();
+                delRoleIdList.push($(this).attr("roleId"));
+                if (confirm("确定要删除吗？")) {
+                    console.log(delRoleIdList);
+                    window.location.href = "role/remove.html?list=" + delRoleIdList
+                        + "&pageNum="+"${requestScope.pageInfo.pageNum}"+"&keyword="+"${param.keyword}";
+                }
+
+            })
+
+            $("#delRoleBtn").click(function () {
+                var count = 0;
+                var delRoleIdList = new Array();
+                $(".delCheck").each(function () {
+                    if (this.checked == true) {
+                        delRoleIdList.push($(this).val());
+                        count++;
+                    }
+                })
+                console.log(count);
+                console.log(delRoleIdList);
+                if (confirm("确定要删除吗？")) {
+                    window.location.href = "role/remove.html?list=" + delRoleIdList
+                        + "&pageNum="+"${requestScope.pageInfo.pageNum}"+"&keyword="+"${param.keyword}";
+                }
+            })
         })
     </script>
 </head>
 <body>
 
-<%@include file="/WEB-INF/nav.jsp" %>
+<%@include file="/WEB-INF/common/nav.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@include file="/WEB-INF/sidebar.jsp" %>
+        <%@include file="/WEB-INF/common/sidebar.jsp" %>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -148,8 +185,8 @@
 
 </div>
 </div>
-<%@include file="/WEB-INF/modal-role-add.jsp"%>
-<%@include file="/WEB-INF/modal-role-edit.jsp"%>
-<%@include file="/WEB-INF/modal-role-assign-auth.jsp"%>
+<%@include file="/WEB-INF/modal/modal-role-add.jsp"%>
+<%@include file="/WEB-INF/modal/modal-role-edit.jsp"%>
+<%@include file="/WEB-INF/modal/modal-role-assign-auth.jsp"%>
 </body>
 </html>

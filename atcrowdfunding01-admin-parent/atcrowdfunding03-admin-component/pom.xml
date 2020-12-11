@@ -12,6 +12,11 @@
     <artifactId>atcrowdfunding03-admin-component</artifactId>
     <packaging>jar</packaging>
 
+    <properties>
+        <studyhub.spring.version>4.3.20.RELEASE</studyhub.spring.version>
+        <studyhub.spring.security.version>4.2.10.RELEASE</studyhub.spring.security.version>
+    </properties>
+
     <dependencies>
 
         <dependency>
@@ -114,9 +119,24 @@
             <version>1.7.25</version>
         </dependency>
 
-
-
+        <!-- SpringSecurity 对 Web 应用进行权限管理 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+            <version>${studyhub.spring.security.version}</version>
+        </dependency>
+        <!-- SpringSecurity 配置 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>${studyhub.spring.security.version}</version>
+        </dependency>
+        <!-- SpringSecurity 标签库 -->
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-taglibs</artifactId>
+            <version>${studyhub.spring.security.version}</version>
+        </dependency>
     </dependencies>
-
 
 </project>

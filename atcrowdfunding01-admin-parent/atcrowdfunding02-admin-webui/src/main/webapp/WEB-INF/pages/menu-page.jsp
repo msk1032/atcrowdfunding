@@ -8,12 +8,12 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zh-CN">
-<%@include file="/WEB-INF/head.jsp" %>
+<%@include file="/WEB-INF/common/head.jsp" %>
 <head>
-    <link rel="stylesheet" href="ztree/zTreeStyle.css">
-    <script type="text/javascript" src="ztree/jquery.ztree.all-3.5.min.js"></script>
-    <script type="text/javascript" src="crowdjs/my-menu.js"></script>
-    <script type="text/javascript" src="layer/layer.js"></script>
+    <link rel="stylesheet" href="static/ztree/zTreeStyle.css">
+    <script type="text/javascript" src="static/ztree/jquery.ztree.all-3.5.min.js"></script>
+    <script type="text/javascript" src="static/crowdjs/my-menu.js"></script>
+    <script type="text/javascript" src="static/layer/layer.js"></script>
     <script>
         $(function(){
 
@@ -171,10 +171,10 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/nav.jsp" %>
+<%@include file="/WEB-INF/common/nav.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@include file="/WEB-INF/sidebar.jsp"%>
+        <%@include file="/WEB-INF/common/sidebar.jsp"%>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
         <%-- 这里显示主题内容  --%>
             <div class="panel panel-default">
@@ -194,8 +194,8 @@
 
     </div>
 </div>
-<%@include file="/WEB-INF/modal-menu-add.jsp"%>
-<%@include file="/WEB-INF/modal-menu-edit.jsp"%>
-<%@include file="/WEB-INF/modal-menu-confirm.jsp"%>
+<%@include file="/WEB-INF/modal/modal-menu-add.jsp"%>
+<%@include file="/WEB-INF/modal/modal-menu-edit.jsp"%>
+<%@include file="/WEB-INF/modal/modal-menu-confirm.jsp"%>
 </body>
 </html>

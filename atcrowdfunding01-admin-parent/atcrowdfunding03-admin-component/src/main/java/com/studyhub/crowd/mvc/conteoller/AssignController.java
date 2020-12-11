@@ -41,7 +41,7 @@ public class AssignController {
         model.addAttribute("assignedRoleList", assignedRoleList);
         model.addAttribute("unassignedRoleList", unassignedRoleList);
 
-        return "assign-role";
+        return "admin/assign-role";
     }
 
     @RequestMapping("/assign/do/role/assign.html")

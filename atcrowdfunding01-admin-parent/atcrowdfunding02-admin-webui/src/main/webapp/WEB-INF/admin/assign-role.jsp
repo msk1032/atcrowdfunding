@@ -8,9 +8,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html lang="zh-CN">
-<%@include file="/WEB-INF/head.jsp" %>
+<%@include file="/WEB-INF/common/head.jsp" %>
 <head>
-    <script type="text/javascript" src="layer/layer.js"></script>
+    <script type="text/javascript" src="static/layer/layer.js"></script>
     <script type="text/javascript">
         $(function () {
             $("#toRightBtn").click(function () {
@@ -33,10 +33,10 @@
 </head>
 <body>
 
-<%@include file="/WEB-INF/nav.jsp" %>
+<%@include file="/WEB-INF/common/nav.jsp" %>
 <div class="container-fluid">
     <div class="row">
-        <%@include file="/WEB-INF/sidebar.jsp"%>
+        <%@include file="/WEB-INF/common/sidebar.jsp"%>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
                 <li><a href="#">首页</a></li>

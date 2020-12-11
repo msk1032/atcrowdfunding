@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.studyhub.crowd.constant.CrowdConstant;
 import com.studyhub.crowd.entity.Admin;
 import com.studyhub.crowd.service.api.AdminService;
+import com.studyhub.crowd.utils.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -76,7 +77,7 @@ public class AdminController {
 
         modelMap.addAttribute(CrowdConstant.ATTR_NAME_PAGE_INFO, pageInfo);
 
-        return "admin-page";
+        return "pages/admin-page";
     }
 
     /**
@@ -102,8 +103,8 @@ public class AdminController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value="admin/remove/admins.json", produces="application/json; charset=UTF-8")
-    public String removeAdmins(@RequestParam("ids") String ids) {
+    @RequestMapping("admin/remove/admins.json")
+    public ResultEntity<String> removeAdmins(@RequestParam("ids") String ids) {
 
         String [] idList = ids.split(",");
 
@@ -112,9 +113,8 @@ public class AdminController {
             adminService.removeAdmin(Integer.parseInt(idList[i]));
         }
 
-        String msg = CrowdConstant.OPERATE_SUCCESS;
 
-        return msg;
+        return ResultEntity.successWithoutData();
     }
 
     /**
@@ -149,7 +149,7 @@ public class AdminController {
         modelMap.addAttribute("admin", admin);
 
 
-        return "admin-edit";
+        return "admin/admin-edit";
     }
 
     @RequestMapping("/admin/update.html")

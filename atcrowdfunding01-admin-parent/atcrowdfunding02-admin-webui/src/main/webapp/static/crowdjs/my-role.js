@@ -88,44 +88,6 @@ $(function () {
     //清除文本框的值
     $("#editModal [name=roleName]").val("");
 
-    //删除模块
-
-    //复选框的全选、全不选
-    $("#checkAll").click(function () {
-        $(".delCheck").prop("checked", $("#checkAll").prop("checked"));
-    })
-    $(document).on("click", ".delCheck", function () {
-        var flag = $(".check:checked").length == $(".delCheck").length;
-        $("#checkAll").prop("checked", flag);
-    })
-
-    $(".delRoleClass").click(function () {
-        var delRoleIdList = new Array();
-        delRoleIdList.push($(this).attr("roleId"));
-        if (confirm("确定要删除吗？")) {
-            console.log(delRoleIdList);
-            window.location.href = "role/remove.html?list=" + delRoleIdList
-                + "&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}";
-        }
-
-    })
-
-    $("#delRoleBtn").click(function () {
-        var count = 0;
-        var delRoleIdList = new Array();
-        $(".delCheck").each(function () {
-            if (this.checked == true) {
-                delRoleIdList.push($(this).val());
-                count++;
-            }
-        })
-        console.log(count);
-        console.log(delRoleIdList);
-        if (confirm("确定要删除吗？")) {
-            window.location.href = "role/remove.html?list=" + delRoleIdList
-                + "&pageNum=${requestScope.pageInfo.pageNum}&keyword=${param.keyword}";
-        }
-    })
 
 
     $(".checkBtn").click(function () {

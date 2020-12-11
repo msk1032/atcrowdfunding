@@ -39,20 +39,23 @@
 
 <!--    配置页面跳转-->
     <mvc:view-controller path="/admin/to/login/page.html" view-name="admin-login"/>
-    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin-main"/>
-    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin-add"/>
-    <mvc:view-controller path="/menu/to/page.html" view-name="menu-page"/>
-
+    <mvc:view-controller path="/admin/to/main/page.html" view-name="admin/admin-main"/>
+    <mvc:view-controller path="/admin/to/add/page.html" view-name="admin/admin-add"/>
+    <mvc:view-controller path="/menu/to/page.html" view-name="pages/menu-page"/>
+<!-- 使用 SpringSecurity 后当前自定义的登录拦截器不再使用了
     <mvc:interceptors>
         <mvc:interceptor>
-            <!-- 配置要拦截的资源 /** 表示拦截多重路径-->
+
             <mvc:mapping path="/**"/>
-            <!-- 配置不需要拦截的页面-->
+
             <mvc:exclude-mapping path="/admin/to/login/page.html"/>
             <mvc:exclude-mapping path="/admin/do/login.html"/>
             <mvc:exclude-mapping path="/admin/do/logout.html"/>
             <bean class="com.studyhub.crowd.mvc.interceptor.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+
+-->
 
 </beans>

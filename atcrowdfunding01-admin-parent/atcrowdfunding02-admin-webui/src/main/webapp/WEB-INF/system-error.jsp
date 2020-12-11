@@ -17,11 +17,11 @@
     <meta name="author" content="">
     <base
             href="http://${pageContext.request.serverName }:${pageContext.request.serverPort }${pageContext.request.contextPath }/" />
-    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/login.css">
-    <script type="text/javascript" src="jquery/jquery-2.1.1.min.js"></script>
-    <script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="static/css/font-awesome.min.css">
+    <link rel="stylesheet" href="static/css/login.css">
+    <script type="text/javascript" src="static/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="static/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function(){
             $("button").click(function(){
@@ -46,9 +46,9 @@
 
 <div class="container">
 
-    <h2 class="form-signin-heading" style="text-align: center;">
-        <i class="glyphicon glyphicon-log-in"></i> 尚筹网系统消息
-    </h2>
+        <h2 class="form-signin-heading" style="text-align: center;">
+            <i class="glyphicon glyphicon-log-in"></i> 尚筹网系统消息
+        </h2>
     <!--
         requestScope对应的是存放request域数据的Map
         requestScope.exception相当于request.getAttribute("exception")

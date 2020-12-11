@@ -8,13 +8,13 @@
 <%@ page language="java" contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
-<%@include file="/WEB-INF/head.jsp"%>
+<%@include file="/WEB-INF/common/head.jsp"%>
 
 <body>
-<%@ include file="/WEB-INF/nav.jsp"%>
+<%@ include file="/WEB-INF/common/nav.jsp"%>
 <div class="container-fluid">
     <div class="row">
-        <%@ include file="/WEB-INF/sidebar.jsp"%>
+        <%@ include file="/WEB-INF/common/sidebar.jsp"%>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
             <ol class="breadcrumb">
                 <li><a href="/admin/to/main/page.html">首页</a></li>
