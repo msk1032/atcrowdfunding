@@ -32,7 +32,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public void saveRoleAuthRelathinship(Map<String, List<Integer>> map) {
+    public void saveRoleAuthRelationship(Map<String, List<Integer>> map) {
         // 1.获取 roleId 的值
         List<Integer> roleIdList = map.get("roleId");
         Integer roleId = roleIdList.get(0);

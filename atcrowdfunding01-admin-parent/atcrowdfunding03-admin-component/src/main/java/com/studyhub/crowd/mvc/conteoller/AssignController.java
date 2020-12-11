@@ -72,22 +72,14 @@ public class AssignController {
         return ResultEntity.successWithData(list);
     }
 
-//    @ResponseBody
-//    @RequestMapping(value = "/assign/do/role/assign/auth.json", produces = "application/json;charset=UTF-8")
-//    public ResultEntity<String> saveRoleAuthRelathinship(@RequestBody Map<String, List<Integer>> map){
-//
-//        authService.saveRoleAuthRelathinship(map);
-//
-//        return ResultEntity.successWithoutData();
-//    }
-
     @ResponseBody
-    @RequestMapping(value = "/assign/do/role/assign/auth.json")
-    public ResultEntity<String> saveRoleAuthRelationship(@RequestParam("roleId")Integer id){
+    @RequestMapping(value = "/assign/do/role/assign/auth.json", produces = "application/json;charset=UTF-8")
+    public ResultEntity<String> saveRoleAuthRelationship(@RequestBody Map<String, List<Integer>> map){
 
-        //authService.saveRoleAuthRelathinship(map);
-        System.out.println("!!!!!!!!!!!!!!!!!"+id);
+        authService.saveRoleAuthRelationship(map);
 
         return ResultEntity.successWithoutData();
     }
+
+
 }
