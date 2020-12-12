@@ -102,3 +102,7 @@ CREATE TABLE `project_crowd`.`inner_role_auth` (
     `role_id` INT, `auth_id` INT,
     PRIMARY KEY (`id`)
 );
+
+#xiu
+ALTER TABLE `project_crowd`.`t_admin` CHANGE `user_pswd` `user_pswd` CHAR(100) CHARSET
+    utf8 COLLATE utf8_general_ci NOT NULL;

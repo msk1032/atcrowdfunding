@@ -6,6 +6,8 @@ import com.studyhub.crowd.entity.Admin;
 import com.studyhub.crowd.service.api.AdminService;
 import com.studyhub.crowd.utils.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -67,6 +69,7 @@ public class AdminController {
      * @param modelMap
      * @return
      */
+    @PostAuthorize("hasRole('经理') or hasAuthority('user:get')")
     @RequestMapping("/admin/get/page.html")
     public String getAdminPage(@RequestParam(value = "keyword", defaultValue = "") String keyword,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -122,6 +125,7 @@ public class AdminController {
      * @param admin
      * @return
      */
+    @PreAuthorize("hasAuthority('user:save')")
     @RequestMapping("/admin/save.html")
     public String saveAdmin(Admin admin) {
 

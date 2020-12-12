@@ -5,6 +5,7 @@ import com.studyhub.crowd.entity.Role;
 import com.studyhub.crowd.service.api.RoleService;
 import com.studyhub.crowd.utils.ResultEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-
+    @PostAuthorize("hasRole('部长') or hasRole('经理')")
     @RequestMapping("/role/get/page.html")
     public String getPageInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,

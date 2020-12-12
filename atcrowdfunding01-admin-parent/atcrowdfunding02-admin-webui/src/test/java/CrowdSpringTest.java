@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import javax.sql.DataSource;
@@ -34,6 +35,16 @@ public class CrowdSpringTest {
 
     @Autowired
     private RoleMapper roleMapper;
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
+    @Test
+    public void testEncodePassword() {
+
+        String encode = passwordEncoder.encode("123456");
+        System.out.println(encode);
+    }
 
     @Test
     public void testInsertRole() {

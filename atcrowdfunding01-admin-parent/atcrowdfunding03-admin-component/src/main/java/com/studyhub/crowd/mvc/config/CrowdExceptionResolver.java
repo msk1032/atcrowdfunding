@@ -78,8 +78,8 @@ public class CrowdExceptionResolver {
      * @return
      * @throws IOException
      */
-    @ExceptionHandler(value = LoginFailedException.class)
-    public ModelAndView resolveLoginFailedException(LoginFailedException exception, HttpServletRequest request,
+    @ExceptionHandler(value = Exception.class)
+    public ModelAndView resolveException(Exception exception, HttpServletRequest request,
                                                     HttpServletResponse response )  throws IOException {
         String viewName = "admin-login";
         return commonResolve(exception,request, response, viewName);
