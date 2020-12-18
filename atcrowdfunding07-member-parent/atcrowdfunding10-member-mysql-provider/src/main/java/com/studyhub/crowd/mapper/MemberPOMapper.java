@@ -1,12 +1,11 @@
 package com.studyhub.crowd.mapper;
 
 
+import java.util.List;
 import com.studyhub.crowd.entity.po.MemberPO;
 import com.studyhub.crowd.entity.po.MemberPOExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 @Repository
 public interface MemberPOMapper {

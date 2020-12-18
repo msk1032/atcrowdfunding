@@ -10,21 +10,22 @@ import lombok.NoArgsConstructor;
 public class MemberPO {
     private Integer id;
 
-    private String loginacct;
+    private String loginAcct;
 
-    private String userpswd;
+    private String userPswd;
 
     private String username;
 
     private String email;
 
-    private Integer authstatus;
+    private Integer authStatus;
 
-    private Integer usertype;
+    private Integer userType;
 
-    private String realname;
+    private String realName;
 
-    private String cardnum;
+    private String cardNum;
 
-    private Integer accttype;
+    private Integer acctType;
+
 }
