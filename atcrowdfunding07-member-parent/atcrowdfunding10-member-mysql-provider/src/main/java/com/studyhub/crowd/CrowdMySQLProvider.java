@@ -13,8 +13,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 @EnableEurekaClient
 @MapperScan("com.studyhub.crowd.mapper")
 @SpringBootApplication
-public class CrowdMainClass {
+public class CrowdMySQLProvider {
     public static void main(String[] args) {
-        SpringApplication.run(CrowdMainClass.class, args);
+        SpringApplication.run(CrowdMySQLProvider.class, args);
     }
 }

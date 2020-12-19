@@ -1,0 +1,16 @@
+server:
+  port: 80
+spring:
+  application:
+    name: studyhub-crowd-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:1000/eureka/
+zuul:
+  ignored-services: "*"
+  routes:
+    crowd-protal:
+      service-id: studyhub-crowd-auth
+      path: /**
+

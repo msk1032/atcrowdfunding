@@ -2,16 +2,17 @@ package com.studyhub.crowd;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 
 /**
  * @author haoren
- * @create 2020-12-16 11:14
+ * @create 2020-12-18 22:49
  */
-@EnableEurekaServer
+
+@EnableEurekaClient
 @SpringBootApplication
-public class CrowdMainClass {
+public class CrowdAuthConsumer {
     public static void main(String[] args) {
-        SpringApplication.run(CrowdMainClass.class, args);
+        SpringApplication.run(CrowdAuthConsumer.class, args);
     }
 }
