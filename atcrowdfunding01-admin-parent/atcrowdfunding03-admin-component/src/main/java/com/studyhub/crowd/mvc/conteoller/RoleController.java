@@ -25,7 +25,7 @@ public class RoleController {
     @Autowired
     private RoleService roleService;
 
-    @PostAuthorize("hasRole('部长') or hasRole('经理')")
+    //@PostAuthorize("hasRole('部长') or hasRole('经理')")
     @RequestMapping("/role/get/page.html")
     public String getPageInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                               @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,

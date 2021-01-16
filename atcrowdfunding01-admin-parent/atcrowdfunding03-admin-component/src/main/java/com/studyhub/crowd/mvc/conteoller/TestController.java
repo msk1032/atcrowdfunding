@@ -59,8 +59,6 @@ public class TestController {
         List<Admin> admins = adminService.getAll();
         boolean ajaxRequest = CrowdUtils.isAjaxRequest(request);
 
-        //logger.info("!!!!!!!!!!!!!!"+ ajaxRequest);
-
         model.addAttribute("admins", admins);
 
         System.out.println(12/0);

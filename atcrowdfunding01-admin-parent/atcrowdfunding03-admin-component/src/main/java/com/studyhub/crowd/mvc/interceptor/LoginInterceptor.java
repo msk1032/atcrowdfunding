@@ -20,7 +20,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         Admin admin = (Admin) request.getSession().getAttribute(CrowdConstant.ATTR_NAME_LOGIN_ADMIN);
 
         if (admin ==null) {
-            throw new AccessForbiddenException(CrowdConstant.MESSAGE_ACCESS_FORBIDEN);
+            throw new AccessForbiddenException(CrowdConstant.MESSAGE_ACCESS_FORBIDDEN);
         }
 
         return true;

@@ -71,7 +71,6 @@ function myAddDiyDom(treeId, treeNode) {
     // 解析：ul标签的id_当前节点的序号_功能
     // 提示：“ul标签的id_当前节点的序号”部分可以通过访问treeNode的tId属性得到
     $("#"+treeNode.tId+"_ico").removeClass().addClass(treeNode.icon)
-
 }
 //鼠标移入时添加按钮组
 function myHoverDom(treeId, treeNode) {

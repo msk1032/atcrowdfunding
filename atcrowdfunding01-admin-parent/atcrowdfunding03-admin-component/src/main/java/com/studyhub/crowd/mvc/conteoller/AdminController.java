@@ -69,7 +69,7 @@ public class AdminController {
      * @param modelMap
      * @return
      */
-    @PostAuthorize("hasRole('经理') or hasAuthority('user:get')")
+    //@PostAuthorize("hasRole('经理') or hasAuthority('user:get')")
     @RequestMapping("/admin/get/page.html")
     public String getAdminPage(@RequestParam(value = "keyword", defaultValue = "") String keyword,
                                @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
@@ -125,7 +125,7 @@ public class AdminController {
      * @param admin
      * @return
      */
-    @PreAuthorize("hasAuthority('user:save')")
+    //@PreAuthorize("hasAuthority('user:save')")
     @RequestMapping("/admin/save.html")
     public String saveAdmin(Admin admin) {
 

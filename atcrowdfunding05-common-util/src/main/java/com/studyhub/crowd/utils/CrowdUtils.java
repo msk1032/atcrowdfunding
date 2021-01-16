@@ -14,6 +14,7 @@ import java.security.NoSuchAlgorithmException;
 public class CrowdUtils {
     /**
      * 判断当前请求是否位ajax请求 如果是 返回true
+     *
      * @param request
      * @return
      */
@@ -27,6 +28,7 @@ public class CrowdUtils {
 
     /**
      * 对明文字符串进行MD5加密
+     *
      * @param source
      * @return
      */
