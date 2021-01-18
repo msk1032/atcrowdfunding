@@ -22,5 +22,7 @@ public class CrowdConstant {
     public static final String ATTR_NAME_PAGE_INFO = "pageInfo";
 
 
-
+    public static final String REDIS_CODE_PREFIX = "REDIS_CODE_PREFIX_";
+    public static final String ATTR_NAME_MESSAGE = "message";
+    public static final String MESSAGE_CODE_NOT_EXISTS = "请检查邮箱或验证码是否正确！";
 }

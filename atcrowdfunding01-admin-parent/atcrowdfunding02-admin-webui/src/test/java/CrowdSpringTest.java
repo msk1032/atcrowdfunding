@@ -88,4 +88,10 @@ public class CrowdSpringTest {
         }
     }
 
+//    @Test
+//    public void testCode() {
+//        String s = SendEmailUtils.messageCode();
+//        System.out.println(s);
+//    }
+
 }

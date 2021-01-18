@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit;
  */
 
 @FeignClient("studyhub-crowd-redis")
-public interface MemberRedisRedisRemoteService {
+public interface MemberRedisRemoteService {
 
     @RequestMapping("/set/redis/key/value/remote")
     ResultEntity<String> setRedisKeyValueRemote(@RequestParam("key") String key,

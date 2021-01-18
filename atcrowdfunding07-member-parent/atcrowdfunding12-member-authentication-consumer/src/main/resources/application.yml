@@ -7,8 +7,15 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-
+send:
+  email:
+    sendEmailAccount: ""
+    sendEmailPassword: ""
+    sendEmailSMTPServer: "smtp.qq.com"
+    smtpPort: "465"
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka/
+
+

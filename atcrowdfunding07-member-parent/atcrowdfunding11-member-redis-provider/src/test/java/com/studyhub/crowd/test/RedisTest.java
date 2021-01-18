@@ -1,5 +1,6 @@
 package com.studyhub.crowd.test;
 
+import com.studyhub.crowd.utils.CrowdUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class RedisTest {
     }
 
     @Test
-    public void testTime(){
+    public void testTime() {
 
         ValueOperations<String, String> ops = template.opsForValue();
 
@@ -46,6 +47,11 @@ public class RedisTest {
 
         System.out.println(ops.get("person"));
 
+    }
+
+    @Test
+    public void testCode() {
+        System.out.println(CrowdUtils.messageCode());
     }
 
 }

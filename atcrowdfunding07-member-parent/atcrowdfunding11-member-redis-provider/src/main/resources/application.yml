@@ -4,7 +4,7 @@ spring:
   application:
     name: studyhub-crowd-redis
   redis:
-    host: 192.168.1.191
+    host: 192.168.0.108
 eureka:
   client:
     service-url:

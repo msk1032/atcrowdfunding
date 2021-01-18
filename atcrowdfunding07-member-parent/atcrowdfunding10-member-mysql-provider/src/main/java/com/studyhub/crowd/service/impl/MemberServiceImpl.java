@@ -6,6 +6,7 @@ import com.studyhub.crowd.mapper.MemberPOMapper;
 import com.studyhub.crowd.service.api.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -34,5 +35,13 @@ public class MemberServiceImpl implements MemberService {
         List<MemberPO> memberPOList = memberPOMapper.selectByExample(example);
 
         return memberPOList.get(0);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW,
+            rollbackFor = Exception.class,
+            readOnly = false)
+    public void saveMember(MemberPO memberPO) {
+        memberPOMapper.insertSelective(memberPO);
     }
 }
