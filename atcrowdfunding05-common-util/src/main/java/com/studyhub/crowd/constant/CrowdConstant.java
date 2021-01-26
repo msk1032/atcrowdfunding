@@ -25,4 +25,6 @@ public class CrowdConstant {
     public static final String REDIS_CODE_PREFIX = "REDIS_CODE_PREFIX_";
     public static final String ATTR_NAME_MESSAGE = "message";
     public static final String MESSAGE_CODE_NOT_EXISTS = "请检查邮箱或验证码是否正确！";
+    public static final String ATTR_NAME_LOGIN_MEMBER = "loginMember";
+    public static final String MESSAGE_UPLOAD_HEAD_PICTURE_FAILED = "头图上传失败";
 }

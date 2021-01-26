@@ -1,5 +1,9 @@
 package com.studyhub.crowd.utils;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.common.comm.ResponseMessage;
+import com.aliyun.oss.model.PutObjectResult;
 import com.studyhub.crowd.constant.CrowdConstant;
 
 import javax.mail.Session;
@@ -7,12 +11,15 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.servlet.http.HttpServletRequest;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Random;
+import java.util.UUID;
 
 
 /**
@@ -75,6 +82,7 @@ public class CrowdUtils {
 
     /**
      * 发送邮件
+     *
      * @param sendEmailAccount
      * @param sendEmailPasswd
      * @param smtpServer
@@ -83,7 +91,7 @@ public class CrowdUtils {
      * @param info
      * @return
      */
-    public static ResultEntity<String> SendEmail(String sendEmailAccount, String sendEmailPasswd, String smtpServer, String smtpPort, String receiveMailAccount, String info)  {
+    public static ResultEntity<String> SendEmail(String sendEmailAccount, String sendEmailPasswd, String smtpServer, String smtpPort, String receiveMailAccount, String info) {
         // 1. 创建参数配置, 用于连接邮件服务器的参数配置
         Properties props = new Properties();                    // 参数配置
         props.setProperty("mail.transport.protocol", "smtp");   // 使用的协议（JavaMail规范要求）
@@ -109,7 +117,7 @@ public class CrowdUtils {
 
         // 3. 创建一封邮件
         try {
-            MimeMessage message = createMessage(session, sendEmailAccount, receiveMailAccount,info);
+            MimeMessage message = createMessage(session, sendEmailAccount, receiveMailAccount, info);
 
             // 4. 根据 Session 获取邮件传输对象
             Transport transport = session.getTransport();
@@ -145,8 +153,8 @@ public class CrowdUtils {
     /**
      * 创建一封只包含文本的简单邮件
      *
-     * @param session 和服务器交互的会话
-     * @param sendMail 发件人邮箱
+     * @param session     和服务器交互的会话
+     * @param sendMail    发件人邮箱
      * @param receiveMail 收件人邮箱
      * @return
      * @throws Exception
@@ -157,7 +165,7 @@ public class CrowdUtils {
         // 2. From: 发件人（昵称有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改昵称）
         message.setFrom(new InternetAddress(sendMail, "尚筹网", "UTF-8"));
         // 3. To: 收件人（可以增加多个收件人、抄送、密送）
-        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, "xx用户", "UTF-8"));
+        message.setRecipient(MimeMessage.RecipientType.TO, new InternetAddress(receiveMail, receiveMail, "UTF-8"));
         // 4. Subject: 邮件主题（标题有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改标题）
         message.setSubject("账户提示", "UTF-8");
         // 5. Content: 邮件正文（可以使用html标签）（内容有广告嫌疑，避免被邮件服务器误认为是滥发广告以至返回失败，请修改发送内容）
@@ -172,18 +180,73 @@ public class CrowdUtils {
 
     /**
      * 生成六位验证码
+     *
      * @return
      */
     public static String messageCode() {
         Random random = new Random();
 
-        Integer sum = random.nextInt(10);
-        for(int i = 0; i < 5; i++) {
-            sum *= 10;
-            sum += random.nextInt(10);
+        StringBuffer code = new StringBuffer();
+
+
+        for (int i = 0; i < 6; i++) {
+            code.append(random.nextInt(10));
         }
 
-        return String.valueOf(sum);
+        return code.toString();
+
     }
 
+
+    public static ResultEntity<String> uploadFileToOSS(String endpoint,
+                                                       String accessKeyId,
+                                                       String accessKeySecret,
+                                                       InputStream inputStream,
+                                                       String bucketName,
+                                                       String bucketDomain,
+                                                       String originalName) {
+        // 创建 OSSClient 实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+        // 生成上传文件的目录
+        String folderName = new SimpleDateFormat("yyyyMMdd").format(new Date());
+        // 生成上传文件在 OSS 服务器上保存时的文件名
+        // 原始文件名：beautfulgirl.jpg
+        // 生成文件名：wer234234efwer235346457dfswet346235.jpg
+        // 使用 UUID 生成文件主体名称
+        String fileMainName = UUID.randomUUID().toString().replace("-", "");
+        // 从原始文件名中获取文件扩展名
+        String extensionName = originalName.substring(originalName.lastIndexOf("."));
+        // 使用目录、文件主体名称、文件扩展名称拼接得到对象名称
+        String objectName = folderName + "/" + fileMainName + extensionName;
+        try {
+            // 调用 OSS 客户端对象的方法上传文件并获取响应结果数据
+            PutObjectResult putObjectResult = ossClient.putObject(bucketName, objectName, inputStream);
+            // 从响应结果中获取具体响应消息
+            ResponseMessage responseMessage = putObjectResult.getResponse();
+            // 根据响应状态码判断请求是否成功
+            if (responseMessage == null) {
+                // 拼接访问刚刚上传的文件的路径
+                String ossFileAccessPath = bucketDomain + "/" + objectName;
+                // 当前方法返回成功
+                return ResultEntity.successWithData(ossFileAccessPath);
+            } else {
+                // 获取响应状态码
+                int statusCode = responseMessage.getStatusCode();
+                // 如果请求没有成功，获取错误消息
+                String errorMessage = responseMessage.getErrorResponseAsString();
+                // 当前方法返回失败
+                return ResultEntity.failed("当前响应状态码="+statusCode+"，错误消息="+errorMessage);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 当前方法返回失败
+            return ResultEntity.failed(e.getMessage());
+        } finally {
+            if (ossClient != null) {
+                // 关闭 OSSClient。
+                ossClient.shutdown();
+            }
+        }
+    }
 }
+

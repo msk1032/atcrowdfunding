@@ -13,7 +13,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
-public class CrowdAuthConsumer {
+public class  CrowdAuthConsumer {
     public static void main(String[] args) {
         SpringApplication.run(CrowdAuthConsumer.class, args);
     }

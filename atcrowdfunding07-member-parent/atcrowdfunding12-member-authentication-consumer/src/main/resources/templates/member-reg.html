@@ -53,6 +53,7 @@
 
                     },
                     error:function(response){
+                         console.log(response)
                         layer.msg(response.status + " " + response.statusText);
                     }
                 })
@@ -91,8 +92,8 @@
             <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
         </div>
 
-        <div class="form-group has-success 2">
-            <input type="text" class="form-control" name="username" id="inputSuccess4" placeholder="请输入昵称" style="margin-top:10px;" required="required">
+        <div class="form-group has-success has-feedback">
+            <input type="text" class="form-control" name="username" id="inputSuccess4" placeholder="请输入昵称" autofocus required="required">
             <span class="glyphicon glyphicon-user form-control-feedback"></span>
         </div>
 

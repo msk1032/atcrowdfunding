@@ -26,13 +26,13 @@ public class CodeTest {
     public void testSendEmail() {
         String code = CrowdUtils.messageCode();
         System.out.println(code);
-        String info = "【尚筹网】尊敬的用户你好，你注册的验证码：" + code + "，如非本人操作，请忽略。";
+        String info = "【尚筹网】尊敬的用户你好，你的验证码：" + code + "，15分钟内有效。如非本人操作，请忽略。";
         try {
             ResultEntity<String> stringResultEntity = CrowdUtils.SendEmail(properties.getSendEmailAccount(),
                     properties.getSendEmailPassword(),
                     properties.getSendEmailSMTPServer(),
                     properties.getSmtpPort(),
-                    "niujk2018@icloud.com",
+                    "2769563356@qq.com",
                     info);
 
             logger.info(stringResultEntity.getResult() );
@@ -40,6 +40,14 @@ public class CodeTest {
             e.printStackTrace();
         }
 
+
+    }
+
+    @Test
+    public void testGetCode() {
+        String code = CrowdUtils.messageCode();
+
+        logger.info(code);
     }
 
 

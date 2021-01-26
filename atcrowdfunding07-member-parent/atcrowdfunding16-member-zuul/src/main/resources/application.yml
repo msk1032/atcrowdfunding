@@ -3,16 +3,24 @@ server:
 spring:
   application:
     name: studyhub-crowd-zuul
+  redis:
+    host: 192.168.0.105
+  session:
+    store-type: redis
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:1000/eureka/
 zuul:
   ignored-services: "*"
+  sensitive-headers: "*"
   routes:
     crowd-protal:
       service-id: studyhub-crowd-auth
       path: /**
+    crowd-project:
+      service-id: studyhub-crowd-project
+      path: /project/**
 ribbon:
   ReadTimeout: 120000  #请求处理的超时时间
   ConnectTimeout: 30000  #请求连接的超时时间

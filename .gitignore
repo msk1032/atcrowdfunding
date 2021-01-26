@@ -27,3 +27,6 @@ hs_err_pid*
 .idea/
 target/
 *.iml
+atcrowdfunding07-member-parent/atcrowdfunding12-member-authentication-consumer/src/main/resources/application.yml
+atcrowdfunding07-member-parent/atcrowdfunding12-member-authentication-consumer/src/main/resources/application.yml
+atcrowdfunding07-member-parent/atcrowdfunding13-member-project-consumer/src/main/resources/application.yml

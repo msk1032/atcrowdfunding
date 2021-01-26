@@ -5,6 +5,7 @@ import com.studyhub.crowd.api.member.MemberRedisRemoteService;
 import com.studyhub.crowd.config.EmailConfigProperties;
 import com.studyhub.crowd.constant.CrowdConstant;
 import com.studyhub.crowd.entity.po.MemberPO;
+import com.studyhub.crowd.entity.vo.MemberLoginVO;
 import com.studyhub.crowd.entity.vo.MemberVO;
 import com.studyhub.crowd.utils.CrowdUtils;
 import com.studyhub.crowd.utils.ResultEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
@@ -33,6 +35,44 @@ public class MemberController {
     private MemberMySQLRemoteService memberMySQLRemoteService;
     @Autowired
     private EmailConfigProperties properties;
+
+    @RequestMapping("/auth/member/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+
+        return "redirect:http://www.crowd.studyhub.com/";
+    }
+
+    @RequestMapping("/auth/member/do/login")
+    public String login(@RequestParam("loginAcct") String loginAcct,
+                        @RequestParam("userPswd") String userPswd,
+                        ModelMap modelMap, HttpSession session) {
+
+        ResultEntity<MemberPO> resultEntity = memberMySQLRemoteService.getMemberPOByLoginAcctRemote(loginAcct);
+
+        if(ResultEntity.FAILED.equals(resultEntity.getResult())) {
+
+            modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, resultEntity.getMessage());
+            return "member-login";
+        }
+        MemberPO memberPO = resultEntity.getData();
+
+        if(memberPO == null) {
+            modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_LOGIN_FAILED);
+            return "member-login";
+        }
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        if(!passwordEncoder.matches(userPswd, memberPO.getUserPswd())){
+            modelMap.addAttribute(CrowdConstant.ATTR_NAME_MESSAGE, CrowdConstant.MESSAGE_LOGIN_FAILED);
+            return "member-login";
+        }
+
+        MemberLoginVO loginVO = new MemberLoginVO(memberPO.getId(), memberPO.getUsername(), memberPO.getEmail());
+        session.setAttribute(CrowdConstant.ATTR_NAME_LOGIN_MEMBER, loginVO);
+
+        return "redirect:http://www.crowd.studyhub.com/auth/member/to/center/page";
+    }
 
     @RequestMapping("/auth/do/member/register")
     public String register(MemberVO memberVO, ModelMap modelMap) {
@@ -76,16 +116,16 @@ public class MemberController {
             }
         }
 
-        return "redirect:/auth/member/to/login/page";
+        return "redirect:http://www.crowd.studyhub.com/auth/member/to/login/page";
     }
 
     @ResponseBody
-    @RequestMapping("/auth/member/send/email.json")
+    @RequestMapping(value = "/auth/member/send/email.json")
     public ResultEntity<String> sendCode(@RequestParam("email") String email) {
 
         String code = CrowdUtils.messageCode();
 
-        String info = "【尚筹网】尊敬的用户你好，你注册的验证码：" + code + "，如非本人操作，请忽略。";
+        String info = "【尚筹网】尊敬的用户你好，你的验证码：" + code + "，如非本人操作，请忽略。";
 
         ResultEntity<String> sendEmailResult = CrowdUtils.SendEmail(properties.getSendEmailAccount(),
                 properties.getSendEmailPassword(),
